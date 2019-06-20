@@ -41,7 +41,6 @@ def get_smart_plug_state(alias):
 while True:
 
     time.sleep(2.0)
-    logger.info("in the loop")
 
     now = dt.datetime.now()
 
