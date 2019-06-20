@@ -40,7 +40,7 @@ def get_smart_plug_state(alias):
 # Main Loop
 while True:
 
-    time.sleep(2.0)
+    time.sleep(constants.SECONDS_TIMEOUT)
 
     now = dt.datetime.now()
 
