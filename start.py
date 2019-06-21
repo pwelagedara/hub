@@ -22,21 +22,25 @@ def get_sensor_state(url):
         logger.exception("An Exception occurred")
         return True
 
-# Turns on a Kasa Smart Plug identified by an alias. 
-# TODO: 06/21/19 Move reusable code into one function
-def turn_on_or_off_smart_plug(alias, turn_on=False):
+# Returns the Smart Plug identified by an alias
+def get_smart_plug(alias):
     for device in Discover.discover().values():
         if device.alias == alias:
-            plug = SmartPlug(device.host)
-            plug.turn_on() if turn_on else plug.turn_off()
+            return SmartPlug(device.host)
+    return None
 
+# Turns on a Kasa Smart Plug identified by an alias
+def turn_on_or_off_smart_plug(alias, turn_on=False):
+    plug = get_smart_plug(alias)
+    if plug is not None:
+        plug.turn_on() if turn_on else plug.turn_off()
 
 # Returns the State of Kasa Smart Plug identified by an alias
 def get_smart_plug_state(alias):
-    for device in Discover.discover().values():
-        if device.alias == alias:
-            plug = SmartPlug(device.host)
-            return True if plug.state == 'ON' else False;
+    plug = get_smart_plug(alias)
+    if plug is not None:
+        return True if plug.state == 'ON' else False;
+    return False
 
 # Main Loop
 while True:
