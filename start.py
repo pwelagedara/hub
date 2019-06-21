@@ -22,7 +22,7 @@ def get_sensor_state(url):
         logger.exception("An Exception occurred")
         return True
 
-# Returns the Smart Plug identified by an alias
+# Returns the Kasa Smart Plug identified by an alias
 def get_smart_plug(alias):
     for device in Discover.discover().values():
         if device.alias == alias:
